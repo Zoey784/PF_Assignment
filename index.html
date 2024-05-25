@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css"> <!-- Link to external CSS file -->
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+        .merriweather-sans {
+            font-family: "Merriweather Sans", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 500;
+            font-style: normal;
+        }
+        
+        header {
+            display:flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            font-family: Merriweather Sans, sans-serif;
+        }
+        nav {
+            display:flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .nav-items {
+            margin:0 10px;
+        }
+        .footer-top-container {
+            display:flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .footer-copyright{
+            text-align:center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">RecipeRealm FlavorFuse</div>
+        <input type="text" placeholder="Search Recipe">
+        <nav>
+            <div class="nav-items">Category</div>
+            <div class="nav-items">Category</div>
+        </nav>
+    </header>
+
+    <section>
+        <h1 class="">Random Meal</h1>
+        <p class="">Discover a variety of enticing meal recipes that will inspire you to get cooking.</p>
+        <div class="Random-Meals-Container">
+            <div id="Random-Meals-Image"></div>
+            <div>
+                <p id="Random-Meals-Name"></p>
+                <p id="Random-Meals-Category"></p>
+            </div>
+            
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-top-container">
+            <div class="logo">RecipeRealm FlavorFuse</div>
+            <nav>
+                <div class="nav-items">Category</div>
+                <div class="nav-items">Category</div>
+            </nav>
+        </div>
+        <p class="footer-copyright"></p>
+    </footer>
+    <script>
+        //Random Meal Recipe
+        const urlRandomMeals = `https://www.themealdb.com/api/json/v1/1/random.php`;
+        
+        fetch(urlRandomMeals)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.meals) {
+                let meal = data.meals[0];
+                let mealImageContainer = document.getElementById('Random-Meals-Image');
+                let mealNameContainer = document.getElementById('Random-Meals-Name');
+                let mealCategoryContainer = document.getElementById('Random-Meals-Category');
+
+                mealImageContainer.innerHTML = `<img src="${meal.strMealThumb}" alt="${meal.strMeal}" class="meal-image">`;
+                mealNameContainer.innerText = meal.strMeal;
+                mealCategoryContainer.innerText = meal.strCategory;
+            } 
+            else {
+                throw new Error('Random meal data not found');
+            }
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+        });
+
+        
+    </script>
+</body>
+</html>

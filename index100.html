@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+
+    <style>
+        #myList {    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 80%;
+    margin: auto;
+        }
+
+        #myList .mystyle {
+            width:45%;
+            border-radius: 15px;
+            
+        }
+
+        #myList .mystyle p {
+            margin:0;
+        }
+
+
+        .modal {
+  display: none;  /*Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+    </style>
+</head>
+<body>
+    <div id="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <div>
+            <div id="image"></div>
+            <div id="id"></div>
+            <div id="name"></div>
+          </div>
+        </div>
+      
+      </div>
+    <div id="myList">
+
+    </div>
+    
+
+    <script>
+    let displayList = [];
+
+    var requestOptions = {
+      method: 'GET',
+      redirect: 'follow'
+    };
+
+    fetch("https://ffxivcollect.com/api/mounts", requestOptions)
+    .then(response => response.json())
+    .then(results => {
+        var list = document.getElementById("myList");
+        results.results.forEach((results) => {
+        displayList.push(results.name);
+        let container = document.createElement("div");
+        container.setAttribute("id", `${results.id}`)
+        container.setAttribute("class", `mystyle`)
+        container.innerHTML = `<img src="${results.image}" class="image"/> <p>${results.name}</p>`;
+        list.appendChild(container);
+        let name = document.getElementById("name");
+        let id = document.getElementById("id");
+        let image = document.getElementById("image");
+        name.innerHTML = results.name;
+        id.innerHTML = results.id;
+        image.innerHTML = `<img src="${results.image}" class="image"/>`;
+    })
+    })
+    .catch(error => console.log('error', error));
+    
+document.addEventListener("click", function(event) {
+  // check which link was clicked using the event.target.id property
+  console.log("hihi")
+  console.log(event.target.id); 
+  //check that the target id is a number or u can compare the class 
+//   if(event.target.id === results.id) {
+
+//   }
+  //retrieve from api
+
+  //inside the api call once results ok. popup w api info
+});
+
+// var modal = document.getElementById("myModal");
+
+// // Get the button that opens the modal
+// var btn = document.getElementsByClassName("mystyle");
+
+// // Get the <span> element that closes the modal
+// var span = document.getElementsByClassName("close")[0];
+
+// // When the user clicks the button, open the modal 
+// btn.onclick = function() {
+//     console.log("trigger1");
+//   modal.style.display = "block";
+// }
+
+// // When the user clicks on <span> (x), close the modal
+// span.onclick = function() {
+//     console.log("trigger2");
+//   modal.style.display = "none";
+// }
+
+// // When the user clicks anywhere outside of the modal, close it
+// window.onclick = function(event) {
+//   if (event.target == modal) {
+//     modal.style.display = "none";
+//   }
+// }
+    </script>
+</body>
+</html>

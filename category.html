@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1 id="categoryTitle"></h1>
+    <ul id="mealsList"></ul>
+
+    <script>
+        // Extract category from query parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const category = urlParams.get('category');
+        document.getElementById('categoryTitle').textContent = category;
+    
+        // Replace 'YOUR_API_KEY' with your actual API key if required
+        const url = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${encodeURIComponent(category)}`;
+    
+        fetch(url)
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            return response.json();
+          })
+          .then(data => {
+            // Extract meals from the response
+            const meals = data.meals;
+    
+            // Display meals
+            const mealsList = document.getElementById('mealsList');
+            meals.forEach(meal => {
+              const listItem = document.createElement('li');
+              listItem.textContent = meal.strMeal;
+              mealsList.appendChild(listItem);
+            });
+          })
+          .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+          });
+      </script>
+</body>
+</html>

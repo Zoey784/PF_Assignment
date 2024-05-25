@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css"> <!-- Link to external CSS file -->
+    <title>Document</title>
+</head>
+<body>
+    <h1>Recipe category</h1>
+   <div id="test"></div>
+   <div id="myList"></div> <!-- Div element to contain the list of recipe categories -->
+   
+   <script>
+    // API endpoint URL
+    const url = `https://www.themealdb.com/api/json/v1/1/categories.php`;
+
+    // Fetch data from the API
+    fetch(url)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      // Extract categories from the response
+      const categories = data.categories;
+      // Get the div element to append the list of categories
+      const myList = document.getElementById('myList');
+      // Iterate over each category and create a div element for each
+      categories.forEach(category => {
+        const listItem = document.createElement('div');
+        // Set the id and class attributes for the div element
+        listItem.setAttribute("id", `${category.idCategory}`)
+        listItem.setAttribute("class", "mystyle")
+        // Populate the div element with category information
+        listItem.innerHTML = `<img src="${category.strCategoryThumb}" class="image"/> <p>${category.strCategory}</p> <p>${category.strCategoryDescription}</p>`;
+        // Add click event listener to navigate to category page
+        listItem.addEventListener('click', () => {
+          window.location.href = `category.html?category=${encodeURIComponent(category.strCategory)}`;
+        });
+        // Append the created div element to the parent div
+        myList.appendChild(listItem);
+      });
+      console.log(data);
+    })
+    .catch(error => {
+      console.error('There was a problem with the fetch operation:', error);
+    });
+   </script>
+</body>
+</html>
