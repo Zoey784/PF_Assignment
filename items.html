@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css"> <!-- Link to external CSS file -->
+    <title>Xiu Ting API Assignment</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@0,300..800;1,300..800&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="logo">RecipeRealm FlavorFuse</div>
+        <form id="search-form"> <!-- Add a form element -->
+            <input type="text" id="searchitem" placeholder="Search Recipe">
+            <button type="submit">Search</button> <!-- Add a submit button -->
+        </form>
+    </header>
+
+    <section>
+        <h1 id="Name"></h1>
+        <div>
+            <div id="Image"></div>
+            <div class="Ingredient-Text-Container">
+                <p>Ingredient Needed:</p>
+                <div id="Ingredient"></div>
+            </div>
+        </div>
+        <p>Instructons</p>
+        <div class="Instructons-Text-Container">
+            <div id="Instructons"></div>
+        </div>
+        <div id="Video"></div>
+    </section>
+
+    <footer>
+        <div class="footer-top-container">
+            <div class="logo">RecipeRealm FlavorFuse</div>
+            <nav>
+                <div class="nav-items">Category</div>
+                <div class="nav-items">Category</div>
+            </nav>
+        </div>
+        <p class="footer-copyright"></p>
+    </footer>
+
+    <script>
+        // Retrieve query string parameter from the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const category = urlParams.get('category');
+
+        // Construct API endpoint using the retrieved category text
+        const apiUrl = `https://www.themealdb.com/api/json/v1/1/search.php?s=${encodeURIComponent(category)}`;
+
+        // Fetch data from the API
+        fetch(apiUrl)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Check if meals data is available
+                if (data.meals) {
+                    // Extract meals from the response
+                    const meals = data.meals;
+
+                    // Display meals on the webpage
+                    meals.forEach(meal => {
+                        let Name = document.getElementById('Name');
+                        let Image = document.getElementById('Image');
+
+                        Image.innerHTML = `<img src="${meal.strMealThumb}" alt="${meal.strMeal}" class="img meal-image"><p>${meal.strTags}</p>`;
+                        Name.innerText = meal.strMeal;
+
+                        let Ingredient = document.getElementById('Ingredient');
+                        for (let i = 1; i <= 20; i++) {
+                            let ingredient = meal[`strIngredient${i}`];
+                            let measure = meal[`strMeasure${i}`];
+                            if (ingredient && measure) {
+                                const listItem = document.createElement('div');
+                                listItem.setAttribute("id", `${i}`)
+                                listItem.setAttribute("class", "Random-Meals-Ingredient-Items");
+                                
+                                listItem.innerHTML = `<p>${ingredient}: </p> <p>${measure}</p>`;
+                                Ingredient.appendChild(listItem);
+                            }
+                        }
+                        
+                        let Instructons = document.getElementById('Instructons');
+                        Instructons.innerText = meal.strInstructions;
+
+                        let Video = document.getElementById('Video');
+                        Video.innerHTML = `<video src="${meal.strYoutube}" controls class="video-item"></video>`;
+                    });
+                } else {
+                    // Handle the case where no meals are found
+                    throw new Error('No meals found for the given category');
+                }
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+            });
+    </script>
+</body>
+</html>

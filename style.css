@@ -4,51 +4,86 @@
   font-weight: 500;
   font-style: normal;
 }
-.merriweather-light {
-    font-family: "Merriweather", serif;
-    font-weight: 300;
-    font-style: normal;
-  }
+
+.merriweather-regular {
+  font-family: "Merriweather", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+*, body{
+  margin:0;
+}
+
+body{
+  width:100%;
+  overflow-x:hidden;
+}
+
+h1{
+  font-family: Merriweather, serif;
+  text-align: center;
+}
+
+h3{
+  font-family: Merriweather Sans, sans-serif;
+  text-align: center;
+  margin: 10px 0;
+}
+
+img{
+  width:100%;
+}
+
+p{
+  font-family: Merriweather Sans, sans-serif;
+  text-align:left;
+}
+
+header {
+  display:flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 30px;
+}
+.logo {
+  font-family: Merriweather Sans, sans-serif;
+}
+nav {
+  display:flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav-items {
+  margin:0 10px;
+}
+.footer-top-container {
+  display:flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.footer-copyright{
+  text-align:center;
+}
+
+section{
+  margin:20px;
+}
+.Random-Meals-Container{
+  display:flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin:10px;
+}
+
+#Random-Meals-Image{
+  width:45%;
+}
+
+.Random-Meals-Text-Container{
+  width:45%;
+}
+
+hr{
   
-  .merriweather-regular {
-    font-family: "Merriweather", serif;
-    font-weight: 400;
-    font-style: normal;
-  }
-  
-  .merriweather-bold {
-    font-family: "Merriweather", serif;
-    font-weight: 700;
-    font-style: normal;
-  }
-  
-  .merriweather-black {
-    font-family: "Merriweather", serif;
-    font-weight: 900;
-    font-style: normal;
-  }
-  
-  .merriweather-light-italic {
-    font-family: "Merriweather", serif;
-    font-weight: 300;
-    font-style: italic;
-  }
-  
-  .merriweather-regular-italic {
-    font-family: "Merriweather", serif;
-    font-weight: 400;
-    font-style: italic;
-  }
-  
-  .merriweather-bold-italic {
-    font-family: "Merriweather", serif;
-    font-weight: 700;
-    font-style: italic;
-  }
-  
-  .merriweather-black-italic {
-    font-family: "Merriweather", serif;
-    font-weight: 900;
-    font-style: italic;
-  }
-  
+}
