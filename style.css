@@ -20,9 +20,15 @@ body{
   overflow-x:hidden;
 }
 
+a{
+  text-decoration: none;
+  color:black;
+}
+
 h1{
   font-family: Merriweather, serif;
   text-align: center;
+  font-size:35px;
 }
 
 h3{
@@ -38,6 +44,8 @@ img{
 p{
   font-family: Merriweather Sans, sans-serif;
   text-align:left;
+  font-size:16px;
+  padding:5px 0;
 }
 
 header {
@@ -46,44 +54,101 @@ header {
   justify-content: space-between;
   padding: 20px 30px;
 }
+
 .logo {
   font-family: Merriweather Sans, sans-serif;
+  font-size: 25px;
 }
+
 nav {
   display:flex;
   align-items: center;
   justify-content: space-between;
 }
-.nav-items {
-  margin:0 10px;
-}
-.footer-top-container {
-  display:flex;
-  align-items: center;
-  justify-content: space-between;
-}
+
 .footer-copyright{
   text-align:center;
+  font-size: 14px;
+  margin:10px 0;
 }
 
 section{
   margin:20px;
 }
+
 .Random-Meals-Container{
   display:flex;
   align-items: flex-start;
   justify-content: space-between;
-  margin:10px;
+  margin: 25px 0 40px;
 }
 
-#Random-Meals-Image{
+#Random-Meals-Image, #Image{
+  width:40%;
+}
+
+.Random-Meals-Text-Container, .Ingredient-Text-Container{
+  width:50%;
+}
+
+.random-name-container, .Random-Meals-Ingredient-Items{
+  display:flex;
+}
+
+.name {
+  width:55%;
+}
+
+#Random-Meals-Name, #Random-Meals-Category, .measure{
   width:45%;
 }
 
-.Random-Meals-Text-Container{
-  width:45%;
+.Ingredient{
+  margin:20px 0;
+  text-align: left!important;
 }
 
-hr{
+.button{
+  cursor: pointer;
+}
+
+#Video{
+  margin: 25px 0 40px;
+  width:100%;
+  height:600px;
+}
+
+.video-item{
+  width:100%;
+  height:100%;
+}
+
+@media screen and (max-width:768px){
+  .Random-Meals-Container{
+    flex-direction: column;
+  }
+
+  #Random-Meals-Image, #Image{
+    width:100%;
+  }
   
+  .Random-Meals-Text-Container, .Ingredient-Text-Container{
+    width:100%;
+  }
+  
+  .name {
+    width:50%;
+  }
+  
+  #Random-Meals-Name, #Random-Meals-Category, .measure{
+    width:50%;
+  }
+  
+  #Video{
+    height:350px;
+  }
+
+  #Ingredient{
+    text-align: cemter;
+  }
 }

@@ -7,14 +7,16 @@
     <title>Xiu Ting API Assignment</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Linking Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@0,300..800;1,300..800&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
-        <div class="logo">RecipeRealm FlavorFuse</div>
-        <form id="search-form"> <!-- Add a form element -->
+        <a href="index.html" class="logo">RecipeRealm FlavorFuse</a>
+        <!-- Search form -->
+        <form id="search-form">
             <input type="text" id="searchitem" placeholder="Search Recipe">
-            <button type="submit">Search</button> <!-- Add a submit button -->
+            <button type="submit">Search</button> <!-- Submit button -->
         </form>
     </header>
 
@@ -25,110 +27,22 @@
         <div class="Random-Meals-Container">
             <div id="Random-Meals-Image"></div>
             <div class="Random-Meals-Text-Container">
-                <div><p>Name:</p><p id="Random-Meals-Name"></p></div>
-                <div><p>Category:</p><p id="Random-Meals-Category"></p></div>
-                <div>
-                    <p>Ingredient Needed:</p>
+                <div class="random-name-container"><p class="name">Name:</p><p id="Random-Meals-Name"></p></div>
+                <div class="random-name-container"><p class="name">Category:</p><p id="Random-Meals-Category"></p></div>
+                
+                    <h3 class="Ingredient">Ingredient Needed:</h3>
                     <div id="Random-Meals-Ingredient"></div>
-                </div>
+                
+                <!-- Button for more details -->
                 <div id="Random-Meals-Button" class="button"><p class=""><u>Read More</u></p><span class="circle"></span></div>
             </div>
         </div>
     </section>
 
     <footer>
-        <div class="footer-top-container">
-            <div class="logo">RecipeRealm FlavorFuse</div>
-            <nav>
-                <div class="nav-items">Category</div>
-                <div class="nav-items">Category</div>
-            </nav>
-        </div>
-        <p class="footer-copyright"></p>
+        <div class="logo" style="text-align:center;">RecipeRealm FlavorFuse</div>
+        <p class="footer-copyright">RecipeRealm FlavorFuse API copyright</p>
     </footer>
-    <script>
-        //Random Meal Recipe
-        const urlRandomMeals = `https://www.themealdb.com/api/json/v1/1/random.php`;
-        
-        fetch(urlRandomMeals)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            if (data.meals) {
-                let meal = data.meals[0];
-                let mealImageContainer = document.getElementById('Random-Meals-Image');
-                let mealNameContainer = document.getElementById('Random-Meals-Name');
-                let mealCategoryContainer = document.getElementById('Random-Meals-Category');
-
-                mealImageContainer.innerHTML = `<img src="${meal.strMealThumb}" alt="${meal.strMeal}" class="img meal-image">`;
-                mealNameContainer.innerHTML = meal.strMeal;
-                mealCategoryContainer.innerHTML = meal.strCategory;
-
-                let RandomMealsIngredient = document.getElementById('Random-Meals-Ingredient');
-                for (let i = 1; i <= 20; i++) {
-                    let ingredient = meal[`strIngredient${i}`];
-                    let measure = meal[`strMeasure${i}`];
-                    if (ingredient && measure) {
-                        const listItem = document.createElement('div');
-                        listItem.setAttribute("id", `${i}`)
-                        listItem.setAttribute("class", "Random-Meals-Ingredient-Items");
-                        
-                        listItem.innerHTML = `<p>${ingredient}: </p> <p>${measure}</p>`;
-                        RandomMealsIngredient.appendChild(listItem);
-                    }
-                }
-
-                let RandomMealsButton = document.getElementById('Random-Meals-Button');
-                RandomMealsButton.addEventListener('click', () => {
-          window.location.href = `items.html?category=${encodeURIComponent(meal.strMeal)}`;
-        });
-            } 
-            else {
-                throw new Error('Random meal data not found');
-            }
-        })
-        .catch(error => {
-            console.error('There was a problem with the fetch operation:', error);
-        });
-
-        
-    </script>
-    <script>
-        // Add an Event Listener to the Form
-        document.getElementById('search-form').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent default form submission behavior
-
-            // Retrieve Search Query
-            let searchQuery = document.getElementById('searchitem').value.trim();
-
-            // Construct the API URL
-            const SearchMeal = `https://www.themealdb.com/api/json/v1/1/search.php?s=${encodeURIComponent(searchQuery)}`;
-
-            // Perform Fetch Request
-            fetch(SearchMeal)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    if (data.meals) {
-                        // Handle Response - You can do whatever you want with the search results
-                        window.location.href = `items.html?category=${encodeURIComponent(searchQuery)}`;
-                        console.log(data.meals); // For demonstration, just logging the meals data
-                    } else {
-                        throw new Error('No meals found for the search query');
-                    }
-                })
-                .catch(error => {
-                    console.error('There was a problem with the fetch operation:', error);
-                });
-        });
-    </script>
 </body>
+<script src="javascript.js"></script>
 </html>
