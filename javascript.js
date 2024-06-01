@@ -59,6 +59,7 @@ document.getElementById('search-form').addEventListener('submit', function(event
     // Construct the API URL
     const SearchMeal = `https://www.themealdb.com/api/json/v1/1/search.php?s=${encodeURIComponent(searchQuery)}`;
 
+    window.location.href = `items.html?category=${encodeURIComponent(searchQuery)}`;
     // Perform Fetch Request
     fetch(SearchMeal)
         .then(response => {
@@ -70,9 +71,10 @@ document.getElementById('search-form').addEventListener('submit', function(event
         .then(data => {
             if (data.meals) {
                 // Handle Response - You can do whatever you want with the search results
-                window.location.href = `items.html?category=${encodeURIComponent(searchQuery)}`;
+                //window.location.href = `items.html?category=${encodeURIComponent(searchQuery)}`;
                 console.log(data.meals); // For demonstration, just logging the meals data
-            } else {
+            } 
+            else {
                 // Handle the case where no meals are found
             let Section = document.getElementById("Section");
             Section.setAttribute("style","display:none;");

@@ -123,6 +123,11 @@ section{
   height:100%;
 }
 
+#hidden-text{
+  text-align: center;
+  padding:20px 0 50px;
+}
+
 @media screen and (max-width:768px){
   .Random-Meals-Container{
     flex-direction: column;
