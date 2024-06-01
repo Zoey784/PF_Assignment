@@ -151,4 +151,9 @@ section{
   #Ingredient{
     text-align: cemter;
   }
+
+  #hidden-text{
+    text-align: center;
+    padding:20px 0 50px;
+  }
 }

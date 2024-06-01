@@ -73,7 +73,13 @@ document.getElementById('search-form').addEventListener('submit', function(event
                 window.location.href = `items.html?category=${encodeURIComponent(searchQuery)}`;
                 console.log(data.meals); // For demonstration, just logging the meals data
             } else {
-                throw new Error('No meals found for the search query');
+                // Handle the case where no meals are found
+            let Section = document.getElementById("Section");
+            Section.setAttribute("style","display:none;");
+            let hiddentext = document.getElementById("hidden-text");
+            hiddentext.setAttribute("style","display:block;");
+            hiddentext.innerText = `Hai ya the item you search not available`;
+            throw new Error('No meals found for the given category');
             }
         })
         .catch(error => {
@@ -124,8 +130,22 @@ fetch(apiUrl)
                     }
                 }
                 
+                // let Instructons = document.getElementById('Instructons');
+                // Instructons.innerHTML = `<p>${meal.strInstructions}</p>`;
                 let Instructons = document.getElementById('Instructons');
-                Instructons.innerHTML = `<p>${meal.strInstructions}</p>`;
+                let instructionsText = meal.strInstructions;
+                
+                // Split the instructions by <li> tags
+                let instructionsArray = instructionsText.split(/<li>|<\/li>/);
+                
+                // Remove empty elements and trim whitespace
+                instructionsArray = instructionsArray.filter(instruction => instruction.trim() !== "");
+                
+                instructionsArray.forEach(instruction => {
+                    const instructionParagraph = document.createElement('p');
+                    instructionParagraph.textContent = instruction.trim(); // Trim to remove extra spaces
+                    Instructons.appendChild(instructionParagraph);
+                });
 
                 // Add YouTube video
                 let Video = document.getElementById('Video');
@@ -138,7 +158,8 @@ fetch(apiUrl)
                     Video.innerText = "No video available for this meal.";
                 }
             });
-        } else {
+        } 
+        else {
             // Handle the case where no meals are found
             let Section = document.getElementById("Section");
             Section.setAttribute("style","display:none;");
